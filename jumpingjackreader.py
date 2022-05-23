@@ -2,14 +2,11 @@
 # Maybe look at all the blocks?
 # And compare adjacent blocks somehow?
 
-import skvideo
 import numpy as np
-from matplotlib import pyplot as plt
 import os
 from skvideo import io
 from skvideo import utils
 import utils
-import time
 
 import sys
 
