@@ -11,15 +11,14 @@ from skvideo import utils
 import utils
 import time
 
+import sys
+
 # load video
 cwd = os.getcwd()
-PATH_TO_FFMPEG = os.path.join(cwd, 'ffmpeg')
-cwd = os.path.dirname(cwd)
-PATH_TO_IO = os.path.join(cwd, 'output')
+PATH_TO_IO = os.path.join(cwd, 'vid')
 
-skvideo.setFFmpegPath(PATH_TO_FFMPEG)
 
-def run(vidpath, filename):
+def run(vidpath):
 	video = io.vread(vidpath, as_grey=True)
 	num_frames = video.shape[0]
 	y = video.shape[1]
@@ -35,8 +34,8 @@ def run(vidpath, filename):
 
 	extrema_count_larm = utils.count_extrema(reduced_avg_frames_larm, 2.5)
 	extrema_count_rarm = utils.count_extrema(reduced_avg_frames_rarm, 2.5)
-	print('left arm extrema: ', extrema_count_larm)
-	print('right arm extrema: ', extrema_count_rarm)
+	# print('left arm extrema: ', extrema_count_larm)
+	# print('right arm extrema: ', extrema_count_rarm)
 
 	if extrema_count_larm % 2 == 0:
 		reps_larm = extrema_count_larm/4
@@ -48,26 +47,19 @@ def run(vidpath, filename):
 	else:
 		reps_rarm = (extrema_count_rarm-1)/4
 
-	print('left arm reps:', reps_larm)
-	print('right arm reps:', reps_rarm)
+	# print('left arm reps:', reps_larm)
+	# print('right arm reps:', reps_rarm)
 
 	if np.std(avg_frames_larm) > np.std(avg_frames_rarm):
 		reps = reps_larm
 	else:
 		reps = reps_rarm
 
-	print('avg reps:', reps)
+	# print('avg reps:', reps)
 
-	outputfile = open(PATH_TO_IO+f'/{filename}.txt', 'w')
-	outputfile.write(f'{int(reps)}')
-	outputfile.close()
+	return reps
 
-while True:
-	time.sleep(1)
-	files = os.listdir(PATH_TO_IO)
-	if files:
-		for file in files:
-			name, ext = file.split('.')
-			if ext == 'mp4':
-				run(os.path.join(PATH_TO_IO, file), name)
-				os.remove(os.path.join(PATH_TO_IO, file))
+if __name__ == '__main__':
+	file = sys.argv[1]
+	reps = run(os.path.join(PATH_TO_IO, file))
+	print(reps)
