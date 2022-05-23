@@ -59,4 +59,4 @@ def run(vidpath):
 if __name__ == '__main__':
 	file = sys.argv[1]
 	reps = run(os.path.join(PATH_TO_IO, file))
-	print(reps)
+	print('Number of reps:', reps)
