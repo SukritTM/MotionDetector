@@ -11,7 +11,7 @@ Open a new terminal window, and navigate to the root of the repository
 
 Start a new Python virtual environment by typing `python -m venv <your-env-name>`
 
-While remaining in the root, type `your-env-name\Scripts\activate` to activate the virtual environment
+While remaining in the root, type `<your-env-name>\Scripts\activate` to activate the virtual environment
 
 Install the dependencies the script requires by using `pip install -r requirements.txt`
 
