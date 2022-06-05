@@ -1,5 +1,5 @@
 # MotionDetector
-A script that detects and counts the number of repetitions of jumping jacks in a videpo clip done by a person
+A script that detects and counts the number of repetitions of jumping jacks in a video clip done by a person
 
 ## Run instructions
 
